@@ -1,10 +1,9 @@
 import React from "react";
+import PostList from "components/PostList";
 
 function Home() {
   return (
-    <div>
-      Home Page
-    </div>
+    <PostList />
   )
 };
 
