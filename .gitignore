@@ -1,3 +1,5 @@
 .isort.cfg
 .python-version
 .vscode/
+db.sqlite3
+__pycache__/
