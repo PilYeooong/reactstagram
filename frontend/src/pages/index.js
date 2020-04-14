@@ -1,17 +1,19 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import AppLayout from "components/AppLayout";
+import PostNew from "pages/PostNew";
 import About from "./About";
 import Home from "./Home";
 import AccountsRoutes from "./accounts";
+import LoginRequiredRoute from "utils/LoginRequiredRoute";
 
 function Root() {
   return (
-    <AppLayout>
-      <Route exact path="/" component={Home} />
+    <>
+      <LoginRequiredRoute exact path="/" component={Home} />
       <Route exact path="/about" component={About} />
+      <LoginRequiredRoute exact path="/post/new" component={PostNew} />
       <Route path="/accounts" component={AccountsRoutes} />
-    </AppLayout>
+    </>
   );
 };
 

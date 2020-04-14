@@ -5,7 +5,7 @@ import SuggestionList from "./SuggestionList";
 import StoryList from "./StoryList";
 import LogoImage from "assets/logo.png"
 
-function AppLayout({ children }) {
+function AppLayout({ children, sidebar }) {
   return (
     <>
       <div className="app">
@@ -26,8 +26,8 @@ function AppLayout({ children }) {
         </div>
         <div className="contents">{children}</div>
         <div className="sidebar">
-          <StoryList style={{ marginBottom: "1rem" }} />
-          <SuggestionList style={{ marginBottom: "1rem" }} />
+          {sidebar}
+          
         </div>
         <div className="footer">&copy;.2020 reactstagram.pilyeooong </div>
       </div>
