@@ -17,3 +17,9 @@ class SignupSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+
+class SuggestionUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'name', 'avatar_url']
