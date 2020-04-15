@@ -1,9 +1,20 @@
+import re
 from rest_framework import serializers
-from .models import Post
+from .models import Post, Comment
 from django.contrib.auth import get_user_model
 
 
 class AuthorSerializer(serializers.ModelSerializer):
+    avatar_url = serializers.SerializerMethodField("avatar_url_field")
+
+    def avatar_url_field(self, author):
+        if re.match(r"^https?://", author.avatar_url):
+            return author.avatar_url
+        if 'request' in self.context:
+            scheme = self.context['request'].scheme
+            host = self.context['request'].get_host()
+            return scheme + "://" + host + author.avatar_url
+
     class Meta:
         model = get_user_model()
         fields = [
@@ -26,3 +37,11 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ['id', 'author', 'created_at', 'photo', 'caption', 'location', 'tag_set', 'is_like']
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    author = AuthorSerializer(read_only=True)
+
+    class Meta:
+        model = Comment
+        fields = ['id', 'author', 'message', 'created_at']
