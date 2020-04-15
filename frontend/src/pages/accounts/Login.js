@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { axiosInstance } from "utils/api";
 import { useHistory, useLocation } from "react-router-dom";
 import { Card, Form, Input, Button, notification } from "antd";
 import { SmileOutlined, FrownOutlined } from "@ant-design/icons";
@@ -20,7 +20,7 @@ function Login() {
       const { username, password } = values;
       const data = { username, password }; 
       try {
-        const response = await axios.post("http://localhost:8000/accounts/token/", data);
+        const response = await axiosInstance.post("/accounts/token/", data);
         const { data: { token: jwtToken } } = response;
 
         dispatch(setToken(jwtToken));

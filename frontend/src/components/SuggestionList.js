@@ -3,9 +3,7 @@ import { Card } from "antd";
 import "./SuggestionList.scss";
 import Suggestion from "./Suggestion";
 import { useAppContext } from "store";
-import useAxios from "axios-hooks";
-import axios from "axios";
-
+import { axiosInstance, useAxios } from "utils/api";
 function SuggestionList({ style }) {
   const {
     store: { jwtToken },
@@ -16,7 +14,7 @@ function SuggestionList({ style }) {
   const headers = { Authorization: `JWT ${jwtToken}` };
   const [{ data: origUserList, loading, error }, refetch] = useAxios({
     // 조회 목적에서는 useAxios 훅을 사용하는 것이 좀 더 간편 !
-    url: "http://localhost:8000/accounts/suggestions/",
+    url: "/accounts/suggestions/",
     headers,
   });
 
@@ -31,7 +29,7 @@ function SuggestionList({ style }) {
   const onFollowUser = (username) => {
     const data = { username };
     const config = { headers };
-    axios.post("http://localhost:8000/accounts/follow/", data, config)
+    axiosInstance.post("/accounts/follow/", data, config)
       .then(response => {
         setUserList((prevUserList) => 
           prevUserList.map((user) => 

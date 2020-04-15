@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Post from "./Post";
-import useAxios from "axios-hooks";
+import { axiosInstance, useAxios } from "utils/api";
 import { useAppContext } from "store";
 import { Alert } from "antd";
-import axios from "axios";
+
+
 
 function PostList() {
   const { store: { jwtToken } } = useAppContext();
@@ -12,7 +13,7 @@ function PostList() {
 
   const headers = { Authorization: `JWT ${jwtToken}` };
   const [{ data: origPostList, loading, error }, refetch] = useAxios({
-    url: "http://localhost:8000/api/posts/",
+    url: "/api/posts/",
     headers,
   });
 
@@ -21,10 +22,10 @@ function PostList() {
   }, [origPostList]);
 
   const handleLike = async ({ post, isLike }) => {
-    const apiUrl = `http://localhost:8000/api/posts/${post.id}/like/`;
+    const apiUrl = `/api/posts/${post.id}/like/`;
     const method = isLike ? "POST" : "DELETE";
     try{
-      const response = await axios({
+      const response = await axiosInstance({
         url: apiUrl,
         method,
         headers,
