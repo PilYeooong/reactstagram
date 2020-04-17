@@ -5,3 +5,6 @@ db.sqlite3
 __pycache__/
 media/
 .env
+.env.production
+prodmemo.txt
+static/
